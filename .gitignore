@@ -1,0 +1,14 @@
+# --- Environment / secrets ---
+.env
+
+# --- Dependencies ---
+node_modules/
+
+# --- Runtime / ephemeral ---
+uploads/
+*.log
+npm-debug.log*
+
+# --- Database backups (dump files are output, not source) ---
+backups/*.sql
+backups/Database_Backups/*.sql
