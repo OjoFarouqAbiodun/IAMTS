@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node server/app.js",
     "dev": "nodemon server/app.js",
-    "test": "node --test --test-concurrency=1 tests/*.test.js"
+    "test": "node scripts/run-tests.js"
   },
   "keywords": [],
   "author": "",

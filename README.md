@@ -96,6 +96,7 @@ iamts/
 │   ├── seed/                  # Demonstration data
 │   └── patch/                 # Utility scripts
 ├── docs/                      # ERD, SDLC and architecture documentation
+├── scripts/                   # Utility scripts (test runner)
 ├── tests/                     # Security regression suite (66 tests)
 ├── backups/                   # Database backup scripts
 ├── setup.bat                  # Windows: database setup
@@ -150,6 +151,12 @@ npm test
 # or
 node --test --test-concurrency=1 tests/*.test.js
 ```
+
+`npm test` runs a wrapper (`scripts/run-tests.js`) that starts a staging server
+on port **3100**, waits for it to be ready, runs the suite, and shuts it down
+automatically. The staging server shares the project `iamts` database; the
+suite creates and cleans up only its own fixtures. Don't run it against a
+database with data you can't afford to be temporarily touched.
 
 Tests require the staging server running on port 3100.
 
