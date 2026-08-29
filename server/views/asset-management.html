@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asset Management | ICT Assets Maintenance & Tracking System</title>
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/asset-management.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/fontawesome/css/all.min.css"
+      integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">
+          <img
+            class="logo-image"
+            src="/assets/images/mist-logo.jpg"
+            alt="mist-logo"
+          />
+          <h2>IAMTS</h2>
+          <p>ICT Assets Maintenance & Tracking System</p>
+        </div>
+        <nav>
+          <ul>
+            <li class="nav-label">Main Menu</li>
+            <li id="menuDashboard">
+              <a href="/dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+
+            <li class="active" id="menuAssets">
+              <a href="/asset-management">
+                <i class="fas fa-computer"></i>
+                <span>Asset Management</span>
+              </a>
+            </li>
+
+            <li id="menuUsers">
+              <a href="/user-management">
+                <i class="fas fa-users"></i>
+                <span>User Management</span>
+              </a>
+            </li>
+
+            <li id="menuRequestMaintenance">
+              <a href="/request-maintenance">
+                <i class="fas fa-screwdriver-wrench"></i>
+                <span>Request Maintenance</span>
+              </a>
+            </li>
+
+            <li id="menuTechnicianMaintenance">
+              <a href="/maintenance-management">
+                <i class="fas fa-toolbox"></i>
+                <span>Maintenance Management</span>
+              </a>
+            </li>
+
+            <li id="menuMyRequests">
+              <a href="/my-requests">
+                <i class="fas fa-list"></i>
+                <span>My Requests</span>
+              </a>
+            </li>
+
+            <li class="nav-label">Analytics &amp; System</li>
+            <li id="menuReports">
+              <a href="/reports">
+                <i class="fas fa-chart-column"></i>
+                <span>Reports</span>
+              </a>
+            </li>
+
+            <li id="menuSettings">
+              <a href="/settings">
+                <i class="fas fa-gear"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <span class="sidebar-status-dot" aria-hidden="true"></span>
+          <span class="sidebar-footer-text">System Operational</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 id="pageTitle">Asset Management</h1>
+
+            <p id="pageSubtitle">
+              Register, manage, search and assign ICT assets across the
+              ministry.
+            </p>
+          </div>
+
+          <div class="header-right">
+            <div class="notification-menu">
+              <button class="notification-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">0</span>
+              </button>
+
+              <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-dropdown-header">Notifications</div>
+                <div id="notificationList">
+                  <div class="notification-empty">No notifications.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-menu">
+              <div class="profile-trigger">
+                <div class="avatar" id="userAvatar">--</div>
+
+                <div class="profile-info">
+                  <h4 id="headerUserName">User</h4>
+                  <p id="headerUserRole">Role</p>
+                </div>
+
+                <i class="fas fa-chevron-down"></i>
+              </div>
+
+              <div class="profile-dropdown" id="profileDropdown">
+                <a href="/profile">
+                  <i class="fas fa-user"></i>
+                  My Profile
+                </a>
+
+                <a href="/change-password">
+                  <i class="fas fa-lock"></i>
+                  Change Password
+                </a>
+
+                <hr />
+
+                <a href="#" id="headerLogout">
+                  <i class="fas fa-right-from-bracket"></i>
+                  Logout
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
+        <section class="asset-toolbar">
+          <div class="search-section">
+            <input
+              type="text"
+              id="searchAsset"
+              placeholder="Search by Asset Tag, Barcode or Asset Name..."
+            />
+          </div>
+
+          <div class="filter-section">
+            <select id="categoryFilter">
+              <option value="">All Categories</option>
+            </select>
+
+            <select id="statusFilter">
+              <option value="">All Status</option>
+              <option value="In Stock">In Stock</option>
+              <option value="Assigned">Assigned</option>
+              <option value="Under Maintenance">Under Maintenance</option>
+              <option value="Retired">Retired</option>
+            </select>
+
+            <button id="registerAssetBtn">
+              <i class="fas fa-plus"></i>
+              Register Asset
+            </button>
+          </div>
+        </section>
+        <section class="asset-table">
+          <div class="request-header">
+            <h2>Registered Assets</h2>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset Tag</th>
+                  <th>Asset Name</th>
+                  <th>Category</th>
+                  <th>Condition</th>
+                  <th>Status</th>
+                  <th>Assigned To</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="assetTableBody"></tbody>
+            </table>
+          </div>
+          <div id="assetModal" class="modal">
+            <div class="modal-content large-modal">
+              <div class="modal-header">
+                <div class="modal-title-wrap">
+                  <h2 class="modal-title">Register New Asset</h2>
+                  <p class="modal-subtitle">
+                    Fill in the details to add a new asset to the inventory.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  class="btn-close"
+                  id="closeAsset"
+                  aria-label="Close"
+                >
+                  <i class="fas fa-xmark"></i>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label>Asset Tag</label>
+                    <input type="text" id="assetTag" maxlength="50" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Barcode</label>
+                    <input type="text" id="barcode" maxlength="100" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Asset Name</label>
+                    <input type="text" id="assetName" maxlength="150" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Category</label>
+                    <select id="category">
+                      <option value="">Select Category</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Brand</label>
+                    <input type="text" id="brand" maxlength="100" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" id="model" maxlength="100" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Serial Number</label>
+                    <input type="text" id="serialNumber" maxlength="100" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Purchase Date</label>
+                    <input type="date" id="purchaseDate" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Condition</label>
+                    <select id="condition">
+                      <option>Excellent</option>
+                      <option>Good</option>
+                      <option>Fair</option>
+                      <option>Poor</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="location" maxlength="150" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-ghost" id="cancelAsset">
+                  Cancel
+                </button>
+                <button type="button" class="btn btn-primary" id="saveAsset">
+                  Save Asset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="assignModal" class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="modal-title-wrap">
+                  <h2 class="modal-title">Assign Asset</h2>
+                  <p class="modal-subtitle">
+                    Select an employee to assign this asset to.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  class="btn-close"
+                  id="closeAssetAssign"
+                  aria-label="Close"
+                >
+                  <i class="fas fa-xmark"></i>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Asset</label>
+                  <input type="text" id="assignAssetName" readonly />
+                </div>
+
+                <div class="form-group">
+                  <label>Assign To</label>
+                  <select id="assignUser">
+                    <option value="">Select Employee</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-ghost" id="cancelAssign">
+                  Cancel
+                </button>
+                <button type="button" class="btn btn-primary" id="confirmAssign">
+                  Assign Asset
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="historyModal" class="modal">
+            <div class="modal-content large-modal">
+              <div class="modal-header">
+                <div class="modal-title-wrap">
+                  <h2 class="modal-title">Asset Assignment History</h2>
+                  <p class="modal-subtitle">
+                    Review the full assignment history for this asset.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  class="btn-close"
+                  id="closeAssetHistory"
+                  aria-label="Close"
+                >
+                  <i class="fas fa-xmark"></i>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <div id="historyContent"></div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-ghost" id="closeHistory">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+<script src="/assets/js/toast.js"></script>
+<script src="/assets/js/csrf.js"></script>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/asset-management.js"></script>
+  </body>
+</html>
