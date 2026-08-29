@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS iamts;
+
+CREATE DATABASE iamts;
+
+USE iamts;
