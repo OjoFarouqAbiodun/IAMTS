@@ -12,3 +12,6 @@ npm-debug.log*
 # --- Database backups (dump files are output, not source) ---
 backups/*.sql
 backups/Database_Backups/*.sql
+
+# --- Build output (portable release package) ---
+release/
