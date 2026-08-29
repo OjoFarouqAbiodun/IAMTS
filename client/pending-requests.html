@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | ICT Assets Maintenance & Tracking System</title>
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/fontawesome/css/all.min.css"
+      integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="page-pending-requests">
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">
+          <img
+            class="logo-image"
+            src="/assets/images/mist-logo.jpg"
+            alt="mist-logo"
+          />
+          <h2>IAMTS</h2>
+          <p>ICT Assets Maintenance & Tracking System</p>
+        </div>
+        <nav>
+          <ul>
+            <li class="nav-label">Main Menu</li>
+            <li class="active" id="menuDashboard">
+              <a href="/dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+
+            <li id="menuAssets">
+              <a href="/asset-management">
+                <i class="fas fa-computer"></i>
+                <span>Asset Management</span>
+              </a>
+            </li>
+
+            <li id="menuUsers">
+              <a href="/user-management">
+                <i class="fas fa-users"></i>
+                <span>User Management</span>
+              </a>
+            </li>
+
+            <li id="menuRequestMaintenance">
+              <a href="/request-maintenance.html">
+                <i class="fas fa-screwdriver-wrench"></i>
+                <span>Request Maintenance</span>
+              </a>
+            </li>
+
+            <li id="menuTechnicianMaintenance">
+              <a href="/maintenance-management">
+                <i class="fas fa-toolbox"></i>
+                <span>Maintenance Management</span>
+              </a>
+            </li>
+
+            <li id="menuMyRequests">
+              <a href="/my-requests">
+                <i class="fas fa-list"></i>
+                <span>My Requests</span>
+              </a>
+            </li>
+
+            <li class="nav-label">Analytics &amp; System</li>
+            <li id="menuReports">
+              <a href="/reports">
+                <i class="fas fa-chart-column"></i>
+                <span>Reports</span>
+              </a>
+            </li>
+
+            <li id="menuSettings">
+              <a href="/settings">
+                <i class="fas fa-gear"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <span class="sidebar-status-dot" aria-hidden="true"></span>
+          <span class="sidebar-footer-text">System Operational</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 id="pageTitle">Pending Requests</h1>
+            <p id="pageSubtitle">
+              Review pending maintenance requests and assign them to available
+              technicians.
+            </p>
+          </div>
+
+          <div class="header-right">
+            <div class="notification-menu">
+              <button class="notification-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">0</span>
+              </button>
+
+              <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-dropdown-header">Notifications</div>
+                <div id="notificationList">
+                  <div class="notification-empty">No notifications.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-menu">
+              <div class="profile-trigger">
+                <div class="avatar" id="userAvatar">--</div>
+                <div class="profile-info">
+                  <h4 id="headerUserName">User</h4>
+                  <p id="headerUserRole">Role</p>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+
+              <div class="profile-dropdown" id="profileDropdown">
+                <a href="/profile"><i class="fas fa-user"></i>My Profile</a>
+                <a href="/change-password"
+                  ><i class="fas fa-lock"></i>Change Password</a
+                >
+                <hr />
+                <a href="#" id="headerLogout"
+                  ><i class="fas fa-right-from-bracket"></i>Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </header>
+        <div id="adminDashboard">
+          <section class="request-table">
+            <div class="request-header">
+              <h2>Pending Maintenance Requests</h2>
+            </div>
+
+            <div class="filters-row table-toolbar">
+              <input
+                type="search"
+                id="searchInput"
+                class="filter-input"
+                placeholder="Search by requester, asset, or problem..."
+              />
+              <select id="filterPriority" class="filter-select">
+                <option value="">All Priorities</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+              <select id="filterStatus" class="filter-select">
+                <option value="">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Out of Service">Out of Service</option>
+              </select>
+              <div class="filter-date-group">
+                <input type="date" id="filterFrom" aria-label="From date" />
+                <span>to</span>
+                <input type="date" id="filterTo" aria-label="To date" />
+              </div>
+              <button type="button" id="resetFilters" class="reset-btn">
+                Reset
+              </button>
+            </div>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Reported By</th>
+                    <th>Asset</th>
+                    <th>Problem</th>
+                    <th>Priority</th>
+                    <th>Date Reported</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody id="pendingRequestsTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <div id="technicianDashboard" style="display: none">
+          <section class="cards">
+            <div class="card">
+              <i class="fas fa-toolbox"></i>
+              <h3>Assigned Jobs</h3>
+              <h2 id="assignedJobsCount">0</h2>
+              <p>Maintenance jobs assigned to you</p>
+            </div>
+
+            <div class="card">
+              <i class="fas fa-screwdriver-wrench"></i>
+              <h3>In Progress</h3>
+              <h2 id="inProgressCount">0</h2>
+              <p>Jobs currently in progress</p>
+            </div>
+
+            <div class="card">
+              <i class="fas fa-circle-check"></i>
+              <h3>Completed</h3>
+              <h2 id="completedJobsCount">0</h2>
+              <p>Completed maintenance jobs</p>
+            </div>
+          </section>
+
+          <section class="request-table">
+            <div class="request-header">
+              <h2>Assigned Maintenance Jobs</h2>
+              <a href="/maintenance-management">Open Maintenance</a>
+            </div>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Asset</th>
+                    <th>Problem</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+
+                <tbody id="technicianDashboardTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <div id="staffDashboard" style="display: none">
+          <section class="cards">
+            <div class="card">
+              <i class="fas fa-desktop"></i>
+              <h3>Assigned Assets</h3>
+              <h2 id="staffAssetsCount">0</h2>
+              <p>Assets currently assigned to you</p>
+            </div>
+
+            <div class="card">
+              <i class="fas fa-file-circle-plus"></i>
+              <h3>Requests Submitted</h3>
+              <h2 id="staffRequestsCount">0</h2>
+              <p>Maintenance requests you've submitted</p>
+            </div>
+
+            <div class="card">
+              <i class="fas fa-circle-check"></i>
+              <h3>Completed Repairs</h3>
+              <h2 id="staffCompletedCount">0</h2>
+              <p>Your completed maintenance requests</p>
+            </div>
+          </section>
+
+          <section class="request-table">
+            <div class="request-header">
+              <h2>Recent Maintenance Requests</h2>
+              <a href="/my-requests">View All</a>
+            </div>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Asset</th>
+                    <th>Problem</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+
+                <tbody id="staffDashboardTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div id="assignModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <h2 class="modal-title">Assign Technician</h2>
+            <p class="modal-subtitle">
+              Select a technician to handle this maintenance job.
+            </p>
+          </div>
+          <button
+            type="button"
+            class="btn-close"
+            id="closeAssignModalX"
+            aria-label="Close"
+          >
+            <i class="fas fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="assign-details">
+            <div class="detail-row">
+              <strong>Requester</strong>
+              <span id="assignRequester">-</span>
+            </div>
+            <div class="detail-row">
+              <strong>Asset</strong>
+              <span id="assignAsset">-</span>
+            </div>
+            <div class="detail-row">
+              <strong>Problem</strong>
+              <span id="assignProblem">-</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="technicianSelect">Select Technician</label>
+            <select id="technicianSelect">
+              <option value="">Loading...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelAssignBtn">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-primary" id="assignTechnicianBtn">
+            Assign
+          </button>
+        </div>
+      </div>
+    </div>
+
+<script src="/assets/js/toast.js"></script>
+<script src="/assets/js/csrf.js"></script>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/pending-requests.js"></script>
+  </body>
+</html>

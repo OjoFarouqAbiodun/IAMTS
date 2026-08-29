@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In | ICT Assets Maintenance & Tracking System</title>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/fontawesome/css/all.min.css"
+      integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="login-container">
+      <aside class="login-hero" aria-hidden="true">
+        <div class="hero-inner">
+          <div class="hero-brand">
+            <img
+              class="hero-logo"
+              src="assets/images/mist-logo.jpg"
+              alt="IAMTS logo"
+            />
+            <div class="hero-brand-text">
+              <h2>IAMTS</h2>
+              <p>ICT Assets Maintenance &amp; Tracking System</p>
+            </div>
+          </div>
+
+          <div class="hero-copy">
+            <p class="hero-eyebrow">Lagos State Ministry of Innovation, Science and Technology</p>
+            <h1>One platform for every ICT asset.</h1>
+            <p class="hero-tagline">
+              Track, maintain, and secure your organisation's assets from a
+              single command centre.
+            </p>
+          </div>
+
+          <ul class="hero-highlights">
+            <li>
+              <span class="highlight-icon"><i class="fa-solid fa-microchip"></i></span>
+              <span>
+                <strong>Asset Tracking</strong>
+                <small>Live status of every registered device</small>
+              </span>
+            </li>
+            <li>
+              <span class="highlight-icon"><i class="fa-solid fa-arrows-rotate"></i></span>
+              <span>
+                <strong>Automated Workflows</strong>
+                <small>Requests, approvals &amp; repairs on autopilot</small>
+              </span>
+            </li>
+            <li>
+              <span class="highlight-icon"><i class="fa-solid fa-shield-halved"></i></span>
+              <span>
+                <strong>System Security</strong>
+                <small>Role-based access for every user</small>
+              </span>
+            </li>
+          </ul>
+
+          <p class="hero-footnote">
+            © 2026 Lagos State Ministry of Innovation, Science and Technology
+          </p>
+        </div>
+      </aside>
+
+      <section class="login-form-section">
+        <div class="login-form-inner">
+          <div class="form-brand">
+            <img
+              class="form-logo"
+              src="assets/images/mist-logo.jpg"
+              alt="IAMTS logo"
+            />
+            <div class="form-brand-text">
+              <h2>IAMTS</h2>
+              <p>ICT Assets Maintenance &amp; Tracking System</p>
+            </div>
+          </div>
+
+          <h1>Welcome back</h1>
+          <p class="form-subtitle">Sign in to your IAMTS account</p>
+
+          <div id="loginAlert" class="login-alert" role="alert" hidden></div>
+
+          <form id="loginForm" novalidate>
+            <label class="field-label" for="email">Email Address</label>
+            <div class="input-group">
+              <i class="fa-solid fa-envelope"></i>
+              <input
+                type="email"
+                id="email"
+                placeholder="you@lagosstate.gov.ng"
+                autocomplete="email"
+                required
+                maxlength="100"
+              />
+            </div>
+
+            <label class="field-label" for="password">Password</label>
+            <div class="input-group">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+                maxlength="128"
+              />
+              <i class="fa-solid fa-eye eye-icon"></i>
+            </div>
+
+            <div class="login-utilities">
+              <label class="remember-me">
+                <input type="checkbox" id="rememberMe" />
+                <span>Remember me</span>
+              </label>
+              <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-signin">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              Sign In
+            </button>
+          </form>
+
+          <footer class="form-footer">
+            © 2026 Lagos State Ministry of Innovation, Science and Technology
+          </footer>
+        </div>
+      </section>
+    </div>
+
+    <div
+      id="forgotPasswordModal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="forgotModalTitle"
+    >
+      <div class="modal-card">
+        <button
+          type="button"
+          class="modal-close"
+          id="forgotModalClose"
+          aria-label="Close"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="modal-icon">
+          <i class="fa-solid fa-key"></i>
+        </div>
+
+        <h2 id="forgotModalTitle">Reset Your Password</h2>
+        <p class="modal-subtitle">
+          Enter your registered organizational email address to receive recovery
+          instructions.
+        </p>
+
+        <div
+          id="forgotModalAlert"
+          class="modal-alert"
+          role="status"
+          hidden
+        ></div>
+
+        <form id="forgotPasswordForm" novalidate>
+          <label class="field-label" for="resetEmail">Email Address</label>
+          <div class="input-group">
+            <i class="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              id="resetEmail"
+              placeholder="you@lagosstate.gov.ng"
+              autocomplete="email"
+              required
+              maxlength="100"
+            />
+          </div>
+
+          <button type="submit" id="sendResetLink" class="btn-signin">
+            <i class="fa-solid fa-paper-plane"></i>
+            Send Reset Link
+          </button>
+
+          <button type="button" id="forgotModalCancel" class="btn-ghost">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="assets/js/csrf.js"></script>
+<script src="assets/js/api.js"></script>
+    <script src="assets/js/login.js"></script>
+  </body>
+</html>

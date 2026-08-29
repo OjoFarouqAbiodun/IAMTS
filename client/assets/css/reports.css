@@ -1,0 +1,205 @@
+/* ===== IAMTS Reports page — export toolbar, charts & print support ===== */
+
+.print-header {
+  display: none;
+}
+
+/* --- Export toolbar (next to the date filters) --- */
+.report-intro {
+  align-items: stretch;
+}
+
+.report-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.export-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.export-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-right: 2px;
+}
+
+.export-toolbar .btn {
+  height: 36px;
+  font-size: 13px;
+  padding: 0 14px;
+}
+
+.export-toolbar .btn i {
+  margin-right: 6px;
+}
+
+/* --- Charts section --- */
+.charts-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.chart-panel h3 {
+  margin-bottom: 20px;
+  color: var(--primary-blue);
+  font-size: 15px;
+}
+
+/* Donut chart (pure CSS conic-gradient) */
+.donut-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.donut {
+  --s1: 0deg;
+  --s2: 0deg;
+  --s3: 0deg;
+  --s4: 0deg;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: conic-gradient(
+    var(--status-pending) 0deg var(--s1),
+    var(--status-progress) var(--s1) var(--s2),
+    var(--status-completed) var(--s2) var(--s3),
+    var(--status-cancelled) var(--s3) var(--s4),
+    #e2e8f0 var(--s4) 360deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.donut::before {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.donut-center {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.donut-center strong {
+  display: block;
+  font-size: 26px;
+  color: var(--primary-blue);
+}
+
+.donut-center span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.donut-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  min-width: 130px;
+}
+
+.donut-legend li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.donut-legend .legend-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.donut-legend .legend-value {
+  margin-left: auto;
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+/* Horizontal bar charts */
+.chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chart-bar-row {
+  display: grid;
+  grid-template-columns: 78px 1fr 34px;
+  gap: 12px;
+  align-items: center;
+}
+
+.chart-bar-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.chart-bar-track {
+  height: 14px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.chart-bar-fill.bar-high {
+  background: linear-gradient(90deg, #fca5a5, #ef4444);
+}
+
+.chart-bar-fill.bar-medium {
+  background: linear-gradient(90deg, #fcd34d, #f59e0b);
+}
+
+.chart-bar-fill.bar-low {
+  background: linear-gradient(90deg, #93c5fd, #3b82f6);
+}
+
+.chart-bar-fill.bar-tech {
+  background: linear-gradient(90deg, #93a8d6, #21487c);
+}
+
+.chart-bar-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+}

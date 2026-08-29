@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Maintenance Details | ICT Assets Maintenance & Tracking System
+    </title>
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/asset-management.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/fontawesome/css/all.min.css"
+      integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">
+          <img
+            class="logo-image"
+            src="/assets/images/mist-logo.jpg"
+            alt="mist-logo"
+          />
+          <h2>IAMTS</h2>
+          <p>ICT Assets Maintenance & Tracking System</p>
+        </div>
+        <nav>
+          <ul>
+            <li class="nav-label">Main Menu</li>
+            <li id="menuDashboard">
+              <a href="/dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li id="menuAssets">
+              <a href="/asset-management">
+                <i class="fas fa-computer"></i>
+                <span>Asset Management</span>
+              </a>
+            </li>
+            <li id="menuUsers">
+              <a href="/user-management">
+                <i class="fas fa-users"></i>
+                <span>User Management</span>
+              </a>
+            </li>
+            <li id="menuRequestMaintenance">
+              <a href="/request-maintenance">
+                <i class="fas fa-screwdriver-wrench"></i>
+                <span>Request Maintenance</span>
+              </a>
+            </li>
+            <li id="menuTechnicianMaintenance">
+              <a href="/maintenance-management">
+                <i class="fas fa-toolbox"></i>
+                <span>Maintenance Management</span>
+              </a>
+            </li>
+            <li id="menuMyRequests">
+              <a href="/my-requests">
+                <i class="fas fa-list"></i>
+                <span>My Requests</span>
+              </a>
+            </li>
+            <li class="nav-label">Analytics &amp; System</li>
+            <li id="menuReports">
+              <a href="/reports">
+                <i class="fas fa-chart-column"></i>
+                <span>Reports</span>
+              </a>
+            </li>
+            <li id="menuSettings">
+              <a href="/settings">
+                <i class="fas fa-gear"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <span class="sidebar-status-dot" aria-hidden="true"></span>
+          <span class="sidebar-footer-text">System Operational</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 id="pageTitle">Maintenance Details</h1>
+            <p id="pageSubtitle">Full record for this maintenance request.</p>
+          </div>
+
+          <div class="header-right">
+            <div class="notification-menu">
+              <button class="notification-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">0</span>
+              </button>
+
+              <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-dropdown-header">Notifications</div>
+                <div id="notificationList">
+                  <div class="notification-empty">No notifications.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-menu">
+              <div class="profile-trigger">
+                <div class="avatar" id="userAvatar">--</div>
+                <div class="profile-info">
+                  <h4 id="headerUserName">User</h4>
+                  <p id="headerUserRole">Role</p>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+
+              <div class="profile-dropdown" id="profileDropdown">
+                <a href="/profile"><i class="fas fa-user"></i>My Profile</a>
+                <a href="/change-password"
+                  ><i class="fas fa-lock"></i>Change Password</a
+                >
+                <hr />
+                <a href="#" id="headerLogout"
+                  ><i class="fas fa-right-from-bracket"></i>Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="asset-table">
+          <div class="request-header">
+            <h2>Asset Information</h2>
+          </div>
+
+          <div class="details-grid">
+            <div class="detail-row">
+              <strong>Asset Name</strong>
+              <span id="assetName"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Asset Tag</strong>
+              <span id="assetTag"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Category</strong>
+              <span id="category"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Brand</strong>
+              <span id="brand"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Model</strong>
+              <span id="model"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="asset-table">
+          <div class="request-header">
+            <h2>Maintenance Information</h2>
+          </div>
+
+          <div class="details-grid">
+            <div class="detail-row">
+              <strong>Reported By</strong>
+              <span id="reportedBy"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Problem</strong>
+              <span id="problemTitle"></span>
+            </div>
+            <div class="detail-row full-width">
+              <strong>Description</strong>
+              <span id="problemDescription"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Priority</strong>
+              <span id="priority"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Status</strong>
+              <span id="status"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Technician</strong>
+              <span id="technician"></span>
+            </div>
+            <div class="detail-row full-width">
+              <strong>Repair Remarks</strong>
+              <span id="remarks"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Date Reported</strong>
+              <span id="dateReported"></span>
+            </div>
+            <div class="detail-row">
+              <strong>Date Completed</strong>
+              <span id="dateCompleted"></span>
+            </div>
+          </div>
+
+          <button id="backBtn" class="cancel-btn" style="margin-top: 20px">
+            ← Back
+          </button>
+        </section>
+      </main>
+    </div>
+
+<script src="/assets/js/toast.js"></script>
+<script src="/assets/js/csrf.js"></script>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/maintenance-details.js"></script>
+  </body>
+</html>

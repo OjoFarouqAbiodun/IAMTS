@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports | ICT Assets Maintenance & Tracking System</title>
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/fontawesome/css/all.min.css"
+      integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/assets/css/reports.css" />
+    <style>
+      @media print {
+        .sidebar,
+        .top-header,
+        .report-actions,
+        .export-toolbar,
+        .notification-menu,
+        .profile-menu {
+          display: none !important;
+        }
+
+        .main-content {
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          background: #ffffff;
+          color: #000000;
+        }
+
+        .container {
+          display: block;
+        }
+
+        .print-header {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          border-bottom: 3px solid #21487c;
+          padding-bottom: 14px;
+          margin-bottom: 20px;
+        }
+
+        .print-header h1 {
+          font-size: 18px;
+          color: #21487c;
+          margin: 0 0 4px;
+        }
+
+        .print-header p {
+          margin: 0;
+          font-size: 12px;
+          color: #555;
+        }
+
+        .print-logo {
+          width: 52px;
+          height: 52px;
+          object-fit: contain;
+        }
+
+        .print-range {
+          margin-left: auto;
+          font-size: 12px;
+          color: #333;
+        }
+
+        .print-range strong {
+          color: #21487c;
+        }
+
+        .report-intro {
+          border: none;
+          box-shadow: none;
+          padding: 0 0 12px;
+          margin: 0 0 12px;
+        }
+
+        .card,
+        .panel,
+        .report-table,
+        .charts-section {
+          box-shadow: none;
+          border: 1px solid #ccc;
+          break-inside: avoid;
+        }
+
+        .charts-section {
+          grid-template-columns: 1fr 1fr;
+          row-gap: 16px;
+        }
+
+        table th {
+          background: #f0f0f0 !important;
+        }
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-header">
+      <img
+        class="print-logo"
+        src="/assets/images/mist-logo.jpg"
+        alt="MIST logo"
+      />
+      <div>
+        <h1>ICT Assets Maintenance &amp; Tracking System</h1>
+        <p>Operational Report &nbsp;·&nbsp; Generated <span id="printGeneratedAt"></span></p>
+      </div>
+      <div class="print-range">
+        <strong>Period:</strong> <span id="printRangeLabel">Today</span>
+      </div>
+    </div>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">
+          <img
+            class="logo-image"
+            src="/assets/images/mist-logo.jpg"
+            alt="mist-logo"
+          />
+          <h2>IAMTS</h2>
+          <p>ICT Assets Maintenance & Tracking System</p>
+        </div>
+        <nav>
+          <ul>
+            <li class="nav-label">Main Menu</li>
+            <li id="menuDashboard">
+              <a href="/dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li id="menuAssets">
+              <a href="/asset-management">
+                <i class="fas fa-computer"></i>
+                <span>Asset Management</span>
+              </a>
+            </li>
+            <li id="menuUsers">
+              <a href="/user-management">
+                <i class="fas fa-users"></i>
+                <span>User Management</span>
+              </a>
+            </li>
+            <li id="menuRequestMaintenance">
+              <a href="/request-maintenance">
+                <i class="fas fa-screwdriver-wrench"></i>
+                <span>Request Maintenance</span>
+              </a>
+            </li>
+            <li id="menuTechnicianMaintenance">
+              <a href="/maintenance-management">
+                <i class="fas fa-toolbox"></i>
+                <span>Maintenance Management</span>
+              </a>
+            </li>
+            <li id="menuMyRequests">
+              <a href="/my-requests">
+                <i class="fas fa-list"></i>
+                <span>My Requests</span>
+              </a>
+            </li>
+            <li class="nav-label">Analytics &amp; System</li>
+            <li class="active" id="menuReports">
+              <a href="/reports">
+                <i class="fas fa-chart-column"></i>
+                <span>Reports</span>
+              </a>
+            </li>
+            <li id="menuSettings">
+              <a href="/settings">
+                <i class="fas fa-gear"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <span class="sidebar-status-dot" aria-hidden="true"></span>
+          <span class="sidebar-footer-text">System Operational</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 id="pageTitle">Reports</h1>
+            <p id="pageSubtitle">System overview and operational reports</p>
+          </div>
+
+          <div class="header-right">
+            <div class="notification-menu">
+              <button class="notification-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">0</span>
+              </button>
+
+              <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-dropdown-header">Notifications</div>
+                <div id="notificationList">
+                  <div class="notification-empty">No notifications.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-menu">
+              <div class="profile-trigger">
+                <div class="avatar" id="userAvatar">--</div>
+
+                <div class="profile-info">
+                  <h4 id="headerUserName">User</h4>
+                  <p id="headerUserRole">Role</p>
+                </div>
+
+                <i class="fas fa-chevron-down"></i>
+              </div>
+
+              <div class="profile-dropdown" id="profileDropdown">
+                <a href="/profile">
+                  <i class="fas fa-user"></i>
+                  My Profile
+                </a>
+                <a href="/change-password">
+                  <i class="fas fa-lock"></i>
+                  Change Password
+                </a>
+                <hr />
+                <a href="#" id="headerLogout">
+                  <i class="fas fa-right-from-bracket"></i>
+                  Logout
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section id="reportsPage">
+          <div class="report-intro">
+            <div>
+              <h2>Operational reporting for the ICT team</h2>
+              <p>
+                Review asset readiness, maintenance request flow, priority load,
+                and technician workload in one view.
+              </p>
+            </div>
+            <div class="report-actions">
+              <div class="report-filters">
+                <button
+                  class="filter-btn active"
+                  id="filterToday"
+                  type="button"
+                  data-range="today"
+                >
+                  Today
+                </button>
+
+                <button
+                  class="filter-btn"
+                  id="filterWeek"
+                  type="button"
+                  data-range="week"
+                >
+                  This Week
+                </button>
+
+                <button
+                  class="filter-btn"
+                  id="filterMonth"
+                  type="button"
+                  data-range="month"
+                >
+                  This Month
+                </button>
+
+                <button class="filter-btn" id="filterCustom" type="button">
+                  Custom Range
+                </button>
+
+                <label class="filter-date-group" id="customRangeGroup" hidden>
+                  <input id="reportStartDate" type="date" />
+                  <span>—</span>
+                  <input id="reportEndDate" type="date" />
+                </label>
+
+                <button
+                  class="filter-btn"
+                  id="applyCustomRange"
+                  type="button"
+                  hidden
+                >
+                  Apply
+                </button>
+              </div>
+
+              <div class="export-toolbar">
+                <span class="export-label">Export:</span>
+                <button class="btn btn-ghost" id="exportCsvBtn" type="button">
+                  <i class="fas fa-file-csv"></i> CSV
+                </button>
+                <button class="btn btn-ghost" id="exportExcelBtn" type="button">
+                  <i class="fas fa-file-excel"></i> Excel
+                </button>
+                <button class="btn btn-primary" id="printReportBtn" type="button">
+                  <i class="fas fa-print"></i> Print / PDF
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <section class="charts-section" id="chartsSection">
+            <div class="panel chart-panel chart-donut-panel">
+              <h3>Maintenance Status Breakdown</h3>
+              <div class="donut-wrap">
+                <div class="donut" id="statusDonut">
+                  <div class="donut-center">
+                    <strong id="donutTotal">0</strong>
+                    <span>requests</span>
+                  </div>
+                </div>
+                <ul class="donut-legend" id="statusDonutLegend"></ul>
+              </div>
+            </div>
+
+            <div class="panel chart-panel chart-bar-panel">
+              <h3>Requests by Priority</h3>
+              <div class="chart-bars" id="priorityBarChart">
+                <div class="chart-bar-row" data-prio="High">
+                  <span class="chart-bar-label">High</span>
+                  <div class="chart-bar-track">
+                    <div class="chart-bar-fill bar-high"></div>
+                  </div>
+                  <strong class="chart-bar-value" id="barHighValue">0</strong>
+                </div>
+                <div class="chart-bar-row" data-prio="Medium">
+                  <span class="chart-bar-label">Medium</span>
+                  <div class="chart-bar-track">
+                    <div class="chart-bar-fill bar-medium"></div>
+                  </div>
+                  <strong class="chart-bar-value" id="barMediumValue">0</strong>
+                </div>
+                <div class="chart-bar-row" data-prio="Low">
+                  <span class="chart-bar-label">Low</span>
+                  <div class="chart-bar-track">
+                    <div class="chart-bar-fill bar-low"></div>
+                  </div>
+                  <strong class="chart-bar-value" id="barLowValue">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel chart-panel chart-bar-panel">
+              <h3>Technician Workload</h3>
+              <div class="chart-bars" id="workloadBarChart"></div>
+            </div>
+          </section>
+
+          <section class="cards reports-summary-cards">
+            <div class="card stat-card stat-card--primary">
+              <i class="fas fa-desktop"></i>
+              <h3>Total Assets</h3>
+              <h2 id="totalAssets">0</h2>
+              <p>Active in system</p>
+            </div>
+            <div class="card stat-card stat-card--info">
+              <i class="fas fa-boxes-stacked"></i>
+              <h3>Available / In Stock</h3>
+              <h2 id="inventoryCount">0</h2>
+              <p>Assets ready for issuance</p>
+            </div>
+            <div class="card stat-card stat-card--info">
+              <i class="fas fa-user-check"></i>
+              <h3>Assigned Assets</h3>
+              <h2 id="assetsAssignedCount">0</h2>
+              <p>Assets currently assigned to staff</p>
+            </div>
+            <div class="card stat-card stat-card--warning">
+              <i class="fas fa-tools"></i>
+              <h3>Under Maintenance</h3>
+              <h2 id="assetsUnderMaintenance">0</h2>
+              <p>Assets undergoing repairs</p>
+            </div>
+          </section>
+
+          <div class="report-panels">
+            <div class="panel status-panel">
+              <h3>Maintenance Summary</h3>
+              <ul class="status-list">
+                <li class="status-item">
+                  <span>Pending</span>
+                  <strong id="pendingRequestsCount">0</strong>
+                </li>
+                <li class="status-item">
+                  <span>In Progress</span>
+                  <strong id="inProgressRequestsCount">0</strong>
+                </li>
+                <li class="status-item">
+                  <span>Completed</span>
+                  <strong id="completedRequestsCount">0</strong>
+                </li>
+                <li class="status-item">
+                  <span>Cancelled</span>
+                  <strong id="cancelledRequestsCount">0</strong>
+                </li>
+              </ul>
+            </div>
+
+            <div class="panel priority-panel">
+              <h3>Requests by Priority</h3>
+              <div class="priority-row prio-high">
+                <span>High</span>
+                <div class="priority-bar-track">
+                  <div class="priority-bar-fill high" id="highPriorityFill"></div>
+                </div>
+                <strong class="priority-value" id="highPriorityCount">0</strong>
+              </div>
+              <div class="priority-row prio-medium">
+                <span>Medium</span>
+                <div class="priority-bar-track">
+                  <div class="priority-bar-fill medium" id="mediumPriorityFill"></div>
+                </div>
+                <strong class="priority-value" id="mediumPriorityCount"
+                  >0</strong
+                >
+              </div>
+              <div class="priority-row prio-low">
+                <span>Low</span>
+                <div class="priority-bar-track">
+                  <div class="priority-bar-fill low" id="lowPriorityFill"></div>
+                </div>
+                <strong class="priority-value" id="lowPriorityCount">0</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="report-mid-grid">
+            <div class="panel workload-panel">
+              <h3>Technician Workload</h3>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Technician</th>
+                      <th>Assigned</th>
+                      <th>In Progress</th>
+                      <th>Completed</th>
+                    </tr>
+                  </thead>
+                  <tbody id="technicianWorkloadBody">
+                    <tr>
+                      <td colspan="4" style="text-align: center">Loading...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel activity-panel">
+              <h3>Recent Activity</h3>
+              <ul class="timeline-list" id="recentActivityList">
+                <li class="timeline-item">Loading recent activity…</li>
+              </ul>
+            </div>
+          </div>
+
+          <section id="maintenanceReport" class="report-table">
+            <div class="request-header">
+              <h2>Maintenance Records Overview</h2>
+              <a href="/maintenance-records">View All Records </a>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Asset</th>
+                    <th>Asset Type</th>
+                    <th>Reported By</th>
+                    <th>Problem</th>
+                    <th>Priority</th>
+                    <th>Technician</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="maintenanceTableBody">
+                  <tr>
+                    <td colspan="8" style="text-align: center">
+                      Loading report…
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+<script src="/assets/js/toast.js"></script>
+<script src="/assets/js/csrf.js"></script>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/reports.js"></script>
+  </body>
+</html>

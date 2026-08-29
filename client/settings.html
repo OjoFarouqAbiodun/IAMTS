@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | ICT Assets Maintenance & Tracking System</title>
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/asset-management.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/fontawesome/css/all.min.css"
+      integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body class="page-settings">
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">
+          <img
+            class="logo-image"
+            src="/assets/images/mist-logo.jpg"
+            alt="mist-logo"
+          />
+          <h2>IAMTS</h2>
+          <p>ICT Assets Maintenance & Tracking System</p>
+        </div>
+        <nav>
+          <ul>
+            <li class="nav-label">Main Menu</li>
+            <li id="menuDashboard">
+              <a href="/dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li id="menuAssets">
+              <a href="/asset-management">
+                <i class="fas fa-computer"></i>
+                <span>Asset Management</span>
+              </a>
+            </li>
+            <li id="menuUsers">
+              <a href="/user-management">
+                <i class="fas fa-users"></i>
+                <span>User Management</span>
+              </a>
+            </li>
+            <li id="menuRequestMaintenance">
+              <a href="/request-maintenance">
+                <i class="fas fa-screwdriver-wrench"></i>
+                <span>Request Maintenance</span>
+              </a>
+            </li>
+            <li id="menuTechnicianMaintenance">
+              <a href="/maintenance-management">
+                <i class="fas fa-toolbox"></i>
+                <span>Maintenance Management</span>
+              </a>
+            </li>
+            <li id="menuMyRequests">
+              <a href="/my-requests">
+                <i class="fas fa-list"></i>
+                <span>My Requests</span>
+              </a>
+            </li>
+            <li class="nav-label">Analytics &amp; System</li>
+            <li id="menuReports">
+              <a href="/reports">
+                <i class="fas fa-chart-column"></i>
+                <span>Reports</span>
+              </a>
+            </li>
+            <li class="active" id="menuSettings">
+              <a href="/settings">
+                <i class="fas fa-gear"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <span class="sidebar-status-dot" aria-hidden="true"></span>
+          <span class="sidebar-footer-text">System Operational</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 id="pageTitle">Settings</h1>
+            <p id="pageSubtitle">Manage your account and preferences.</p>
+          </div>
+
+          <div class="header-right">
+            <div class="notification-menu">
+              <button class="notification-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">0</span>
+              </button>
+
+              <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-dropdown-header">Notifications</div>
+                <div id="notificationList">
+                  <div class="notification-empty">No notifications.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-menu">
+              <div class="profile-trigger">
+                <div class="avatar" id="userAvatar">--</div>
+                <div class="profile-info">
+                  <h4 id="headerUserName">User</h4>
+                  <p id="headerUserRole">Role</p>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+
+              <div class="profile-dropdown" id="profileDropdown">
+                <a href="/profile"><i class="fas fa-user"></i>My Profile</a>
+                <a href="/change-password"
+                  ><i class="fas fa-lock"></i>Change Password</a
+                >
+                <hr />
+                <a href="#" id="headerLogout"
+                  ><i class="fas fa-right-from-bracket"></i>Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="asset-table">
+          <div class="request-header">
+            <h2>Account Summary</h2>
+          </div>
+
+          <div class="details-grid">
+            <div class="detail-row">
+              <strong>Full Name</strong>
+              <span id="settingsFullName">-</span>
+            </div>
+            <div class="detail-row">
+              <strong>Email</strong>
+              <span id="settingsEmail">-</span>
+            </div>
+            <div class="detail-row">
+              <strong>Role</strong>
+              <span id="settingsRole">-</span>
+            </div>
+            <div class="detail-row">
+              <strong>Department</strong>
+              <span id="settingsDepartment">-</span>
+            </div>
+            <div class="detail-row">
+              <strong>Status</strong>
+              <span id="settingsStatus">-</span>
+            </div>
+            <div class="detail-row">
+              <strong>Member Since</strong>
+              <span id="settingsMemberSince">-</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="asset-table">
+          <div class="request-header">
+            <h2>Edit Profile</h2>
+          </div>
+
+          <form
+            id="profileForm"
+            class="form-grid"
+            style="max-width: 500px"
+          >
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="profileFullNameInput" required maxlength="100" />
+            </div>
+
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="text" id="profilePhoneInput" maxlength="20" />
+            </div>
+
+            <div class="form-group form-group-full">
+              <div
+                id="profileFeedback"
+                class="form-message"
+                role="status"
+                aria-live="polite"
+              ></div>
+            </div>
+
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <button type="submit" id="saveProfileBtn" class="btn btn-primary">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="asset-table">
+          <div class="request-header">
+            <h2>Notification Preferences</h2>
+          </div>
+
+          <div id="preferenceList"></div>
+
+          <div
+            id="prefsFeedback"
+            class="form-message"
+            role="status"
+            aria-live="polite"
+          ></div>
+        </section>
+
+        <section class="asset-table">
+          <div class="request-header">
+            <h2>Change Password</h2>
+          </div>
+
+          <form
+            id="changePasswordForm"
+            class="form-grid"
+            style="max-width: 500px"
+          >
+            <div class="form-group">
+              <label>Current Password</label>
+              <input type="password" id="currentPassword" required maxlength="128" />
+            </div>
+
+            <div class="form-group">
+              <label>New Password</label>
+              <input type="password" id="newPassword" required minlength="8" maxlength="128" />
+              <small class="field-hint">At least 8 characters.</small>
+            </div>
+
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                required
+                minlength="8"
+                maxlength="128"
+              />
+              <small class="field-hint" id="confirmPasswordHint" hidden></small>
+            </div>
+
+            <div class="form-group form-group-full">
+              <div
+                id="passwordFeedback"
+                class="form-message"
+                role="status"
+                aria-live="polite"
+              ></div>
+            </div>
+
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <button
+                type="submit"
+                id="submitPasswordChange"
+                class="btn btn-primary"
+              >
+                Update Password
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+<script src="/assets/js/toast.js"></script>
+<script src="/assets/js/csrf.js"></script>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/settings.js"></script>
+  </body>
+</html>
