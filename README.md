@@ -2,6 +2,12 @@
 
 CSC 392 / CSC 394 University Project
 
+## 🎓 Project Documentation
+
+- **`docs/ERD.md`** – database design, entity relationships, and sample queries (CSC 394)
+- **`docs/SDLC.md`** – system development life cycle write-up (CSC 392)
+- **`docs/ARCHITECTURE.md`** – tech stack, component layout, and security controls
+
 ## Prerequisites
 
 - **Node.js** v20+ (verified with v24.19.0)
@@ -89,6 +95,7 @@ iamts/
 │   ├── migrations/            # Incremental schema changes (002-007)
 │   ├── seed/                  # Demonstration data
 │   └── patch/                 # Utility scripts
+├── docs/                      # ERD, SDLC and architecture documentation
 ├── tests/                     # Security regression suite (66 tests)
 ├── backups/                   # Database backup scripts
 ├── setup.bat                  # Windows: database setup
