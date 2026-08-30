@@ -10,179 +10,178 @@
 
 ---
 
-## Table of Contents
-1. Introduction
-2. The Role of Microsoft Office in the ICT Department
-3. Microsoft Word
-4. Microsoft Excel
-5. Microsoft PowerPoint
-6. Microsoft Access
-7. Microsoft Outlook
-8. How Office Skills Supported the IAMTS Project
-9. Shortcuts and Techniques Learned
-10. Challenges and Solutions
-11. Conclusion and Recommendations
-
----
-
 ## 1. Introduction
 
-This report describes how **Microsoft Office applications** were used during my
-SIWES attachment at the ICT department of the Lagos State Ministry of
-Innovation, Science and Technology, Alausa-Secretariat, Ikeja, Lagos. Office
-applications were essential for everyday clerical and technical work — from
-writing official letters and maintaining records, to analyzing data and
-preparing presentations. This report focuses on Microsoft Word, Excel,
-PowerPoint, Access, and Outlook, and how they supported both the department's
-work and my own IAMTS project.
+During my SIWES attachment at the ICT department of the Lagos State Ministry
+of Innovation, Science and Technology, Alausa-Secretariat, Ikeja, Lagos, I used
+Microsoft Office applications almost every day. They were needed for a lot of
+the clerical and technical work in the office, from writing official letters
+and keeping records, to analyzing data and preparing presentations.
+
+This report focuses on Microsoft Word, Excel, PowerPoint, Access, and Outlook,
+and how I used them both for the everyday work in the department and to support
+my IAMTS project.
 
 ---
 
 ## 2. The Role of Microsoft Office in the ICT Department
 
 The ICT department used Microsoft Office on a daily basis for:
-- Drafting official letters, memos, and technical documents (Word).
-- Keeping asset inventories and logs (Excel).
-- Tracking maintenance and work schedules (Excel).
-- Preparing reports and presentations for management (PowerPoint/Word).
-- Managing email and appointments (Outlook).
-- Simple database tasks for record-keeping (Access).
 
-These tasks formed the administrative backbone of the department and
-complemented the technical asset-maintenance work.
+- Drafting official letters, memos, and technical documents in Word.
+- Keeping asset inventories and logs in Excel.
+- Tracking maintenance and work schedules in Excel.
+- Preparing reports and presentations for management.
+- Managing email and appointments in Outlook.
+- Simple database record keeping in Access.
+
+These tasks were the administrative side of the department and they
+complemented the more technical asset maintenance work that I was looking at
+for my project.
 
 ---
 
 ## 3. Microsoft Word
 
-Word was used to create and format official documents.
+Word was where I did most of the document work.
 
 ### 3.1 What I Did
+
 - Prepared official letters, memos, and inter-departmental correspondence.
-- Created the **CV** as a practical exercise (CSC 396 requirement) using
-  tables, styles, and text formatting.
-- Used **Mail Merge** to generate multiple personalized copies of a letter or
-  notice from an Excel list of recipients (e.g., notifying staff about asset
-  returns or maintenance schedules).
-- Produced the project's textual documentation (Software and Database reports).
-- Created tables, inserted headers/footers, page numbers, and a table of
-  contents for long documents.
+- Created my CV as a practical exercise (required for CSC 396) using tables,
+  styles, and text formatting.
+- Used Mail Merge to generate several personalized copies of a letter from an
+  Excel list of recipients. This was useful for notices about asset returns and
+  maintenance schedules.
+- Produced the textual documentation for the Software and Database reports.
+- Made long documents look tidy with headers, footers, page numbers, and a
+  table of contents.
 
 ### 3.2 Skills Demonstrated
-- Styles and formatting (titles, headings, body text).
+
+- Using styles and formatting for titles, headings, and body text.
 - Inserting and formatting tables and images.
-- Headers, footers, page numbering, and section breaks.
-- Mail merge with an external data source.
-- Spell check, find/replace, and track changes (collaboration).
+- Adding headers, footers, page numbers, and section breaks.
+- Performing a mail merge from an external data source.
+- Using spell check, find and replace, and track changes.
 
 ---
 
 ## 4. Microsoft Excel
 
-Excel was the department's main tool for tracking assets and data.
+Excel was the main tool the department used for tracking assets and data.
 
 ### 4.1 What I Did
-- Maintained an **asset inventory spreadsheet** (columns for asset tag, name,
-  category, brand, serial number, location, and status).
+
+- Maintained an asset inventory spreadsheet with columns for asset tag, name,
+  category, brand, serial number, location, and status.
 - Recorded maintenance logs with dates and remarks.
-- Used **formulas** such as `SUM`, `COUNTA`, `COUNTIF`, and `IF` to summarize
-  data (e.g., counting assets in a given location or status).
-- Used **sorting and filtering** to quickly find assets by category or status.
-- Created simple **charts** from asset data to visualize distribution.
-- (Practical) Demonstrated a **macro** in Excel to automate a repetitive
-  formatting task, following the CSC 396 requirement.
+- Used formulas such as `SUM`, `COUNTA`, `COUNTIF`, and `IF` to summarize the
+  data, for example counting assets in a certain location or status.
+- Used sorting and filtering to find assets by category or status quickly.
+- Created simple charts from the asset data to show the distribution.
+- As a practical exercise for CSC 396, I recorded a macro in Excel that
+  automated a repetitive formatting task.
 
 ### 4.2 Example Formulas
+
 ```
-=COUNTIF(status_column, "Under Maintenance")   // count assets in maintenance
-=SUM(number_column)                            // total of selected figures
-=IF(condition, value_if_true, value_if_false)  // conditional logic
+=COUNTIF(status_column, "Under Maintenance")   counts assets in maintenance
+=SUM(number_column)                            adds up a range of values
+=IF(condition, value_if_true, value_if_false)  applies conditional logic
 ```
 
 ### 4.3 Skills Demonstrated
+
 - Data entry, cell formatting, and data validation.
 - Formulas and functions.
 - Sorting, filtering, and conditional formatting.
 - Charts and basic data visualization.
-- Excel macros for automation.
+- Excel macros for automating repetitive work.
 
 ---
 
 ## 5. Microsoft PowerPoint
 
-PowerPoint was used to prepare presentations.
+PowerPoint was used to put together presentations.
 
 ### 5.1 What I Did
-- Created a departmental **presentation** about the ICT asset situation and the
+
+- Created a departmental presentation about the ICT asset situation and the
   proposed IAMTS solution.
 - Designed slides with titles, bullet points, images, and the organization's
   branding.
-- Added **animations and transitions** to make the presentation clear and
-  engaging (CSC 396 requirement).
-- Practiced layout and design principles (contrast, alignment, consistent
-  colors and fonts).
+- Added animations and transitions so the presentation was clearer and more
+  engaging (this is a requirement for CSC 396).
+- Practiced good layout and design principles like contrast, alignment, and
+  consistent colors and fonts.
 
 ### 5.2 Skills Demonstrated
+
 - Creating and organizing slides.
-- Using slide layouts, themes, and master slides.
+- Using slide layouts, themes, and the master slide.
 - Inserting images, tables, and SmartArt.
 - Applying animations and slide transitions.
-- Preparing presentation handouts and speaker notes.
+- Preparing handouts and speaker notes.
 
 ---
 
 ## 6. Microsoft Access
 
-Microsoft Access was used to demonstrate simple database management.
+Access gave me a simple introduction to database management.
 
 ### 6.1 What I Did
-- Built a small sample **database table** (e.g., an asset log) with fields and
-  a primary key.
-- Created a simple **query** to filter records.
-- Designed a basic **form** for data entry and a **report** for printing.
+
+- Built a small sample table (for example an asset log) with fields and a
+  primary key.
+- Created a simple query to filter records.
+- Designed a basic form for data entry and a report for printing.
 
 ### 6.2 Relationship to IAMTS
-Access provided a beginner-friendly introduction to relational concepts
-(tables, keys, queries, forms, reports) that prepared me to design the full
-MySQL database used in the IAMTS project. The Database Report (CSC 394)
-describes the complete MySQL implementation.
+
+Access introduced me to relational concepts like tables, keys, queries, forms,
+and reports. This prepared me to design the full MySQL database used in the
+IAMTS project, which is described in detail in the Database Report (CSC 394).
 
 ---
 
 ## 7. Microsoft Outlook
 
-Outlook was used for day-to-day office communication.
+Outlook handled the day-to-day communication in the office.
 
 ### 7.1 What I Did
+
 - Sent and received departmental emails.
 - Managed the supervisor's calendar and scheduled meetings.
-- Organized contacts and used email folders for filing.
+- Organized contacts and used folders to file emails.
 
 ### 7.2 Skills Demonstrated
+
 - Composing, formatting, and sending emails.
 - Managing calendar appointments and meeting invitations.
 - Organizing mail into folders and using search.
 
 ---
 
-## 8. How Office Skills Supported the IAMTS Project
+## 8. How Microsoft Office Supported the IAMTS Project
 
-The Microsoft Office skills learned during the attachment directly supported
-the IAMTS software and database projects:
-- **Word** — used to write the project reports, letters, and CV.
-- **Excel** — used to model and visualize the asset data prior to database
-  design, which clarified the spreadsheet-to-database migration problem the
-  project solves.
-- **PowerPoint** — used to prepare the project defense presentation.
-- **Access** — provided an introduction to relational databases before moving
+The Office skills I learned during the attachment directly supported the IAMTS
+software and database projects:
+
+- **Word** was used to write the project reports, letters, and my CV.
+- **Excel** was used to model and visualize the asset data before the database
+  was designed, which helped me understand the spreadsheet-to-database
+  migration problem that the project solves.
+- **PowerPoint** was used to prepare the project defense presentation.
+- **Access** gave me an introduction to relational databases before I moved on
   to MySQL.
-- **Outlook** — used to manage project communication with the supervisor.
+- **Outlook** was used to keep in touch with my supervisor about the project.
 
 ---
 
 ## 9. Shortcuts and Techniques Learned
 
-Below are key shortcuts practiced during the attachment:
+Some of the keyboard shortcuts I used during the attachment:
 
 **General**
 - `Ctrl + C`, `Ctrl + X`, `Ctrl + V` — copy, cut, paste.
@@ -200,40 +199,41 @@ Below are key shortcuts practiced during the attachment:
 - `Alt + =` — auto sum.
 
 **PowerPoint**
-- `F5` — start slide show from the beginning.
+- `F5` — start the slide show from the beginning.
 - `Shift + F5` — start from the current slide.
 
 ---
 
 ## 10. Challenges and Solutions
 
-1. **Challenge:** Learning mail merge properly.
-   **Solution:** Practiced with a sample recipient list and studied the data
-   source setup (Excel → Word).
-2. **Challenge:** Performing data analysis in Excel.
-   **Solution:** Learned formulas, `COUNTIF`, sorting, and filtering through
-   hands-on exercises on the asset inventory.
-3. **Challenge:** Making the PowerPoint engaged the audience.
-   **Solution:** Applied design principles, animations, and consistent
-   branding, then rehearsed.
-4. **Challenge:** Relating Access exercises to a real database.
-   **Solution:** Used the Access examples as a stepping stone to designing the
+1. **Challenge:** Getting the mail merge to work properly.
+   **Solution:** I practiced with a sample recipient list and studied how the
+   data source was set up between Excel and Word.
+2. **Challenge:** Doing data analysis in Excel.
+   **Solution:** I learned formulas like `COUNTIF`, sorting, and filtering by
+   working directly on the asset inventory.
+3. **Challenge:** Making the PowerPoint interesting for the audience.
+   **Solution:** I applied design principles, animations, and consistent
+   branding, and then practiced the delivery.
+4. **Challenge:** Connecting my Access exercises to a real database.
+   **Solution:** I used the Access examples as a stepping stone to designing the
    full MySQL database for IAMTS.
 
 ---
 
 ## 11. Conclusion and Recommendations
 
-Microsoft Office applications played a vital role throughout my SIWES
-attachment, enabling efficient documentation, data management, communication,
-and presentation. These skills directly supported the IAMTS project and are
-transferable to any professional environment.
+Microsoft Office applications played a very important part in my SIWES
+attachment. They made documentation, data management, communication, and
+presentation much easier and faster. These skills also supported the IAMTS
+project directly, and they are skills I can carry into any professional job.
 
-**Recommendations:**
-- Continue to practice advanced Excel functions and macros.
-- Learn Power Query for more powerful data analysis.
-- Explore advanced Word features (styles automation, collaboration).
-- Use consistent, professional templates for departmental documents.
+For future improvement, I would suggest:
+
+- Practicing more advanced Excel functions and macros.
+- Learning Power Query for better data analysis.
+- Exploring the advanced Word features like style automation and collaboration.
+- Using professional templates for departmental documents.
 
 ---
 

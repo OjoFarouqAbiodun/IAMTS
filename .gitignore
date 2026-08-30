@@ -15,3 +15,7 @@ backups/Database_Backups/*.sql
 
 # --- Build output (portable release package) ---
 release/
+
+# --- Personal study / working notes (not part of the submitted project) ---
+defense-notes/
+documents/
