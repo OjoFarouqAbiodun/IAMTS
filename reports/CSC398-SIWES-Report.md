@@ -7,7 +7,7 @@
 **Institution:** Lagos State University, Ojo
 **SIWES Organization:** Lagos State Ministry of Innovation, Science and Technology, Alausa-Secretariat, Ikeja, Lagos
 **Industrial Supervisor:** Mr. Tola Ajagbe
-**Duration:** [Insert your SIWES start and end dates]
+**Duration:** May 2026 – October 2026
 **Course:** CSC 398 — SIWES/Logbook
 
 ---
