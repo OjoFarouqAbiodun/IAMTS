@@ -1103,7 +1103,14 @@ async function getLatestMaintenanceForAsset(assetId, callback) {
     SELECT id
     FROM maintenance
     WHERE asset_id = ?
-    ORDER BY id DESC
+    ORDER BY
+      CASE maintenance_status
+        WHEN 'In Progress' THEN 1
+        WHEN 'Out of Service' THEN 2
+        WHEN 'Pending' THEN 3
+        ELSE 4
+      END,
+      id DESC
     LIMIT 1
   `;
 
