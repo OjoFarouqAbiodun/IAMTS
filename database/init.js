@@ -143,6 +143,7 @@ async function main() {
     "migrations/005_create_password_resets.sql",
     "migrations/006_rename_password_resets_token_hash.sql",
     "migrations/007_create_audit_log.sql",
+    "migrations/008_create_password_history.sql",
   ];
   for (const file of migrationFiles) {
     const stmts = readSql(file);
@@ -256,6 +257,7 @@ async function main() {
     "notifications",
     "user_preferences",
     "password_resets",
+    "password_history",
     "audit_log",
   ];
   const [tables] = await conn.query("SHOW TABLES");

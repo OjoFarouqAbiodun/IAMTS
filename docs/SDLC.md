@@ -37,7 +37,7 @@ The project followed the **Waterfall-style SDLC** with iterative testing:
 | 4. Implementation | Back-end APIs, front-end pages, database initialization                      | Working application                              |
 | 5. Testing     | Security regression suite; API integration tests; manual acceptance          | `tests/*`, verified build                          |
 | 6. Deployment  | `setup.bat` + `start.bat`, `.env`, LAN access, backup scripts                | Flash-drive package, backup automation           |
-| 7. Maintenance | Versioned migrations, backups, documented known gaps, future improvements    | `docs/`, `backups/`                              |
+| 7. Maintenance | Versioned migrations, backups, documented operational work, future improvements | `docs/`, `backups/`                              |
 
 ---
 
@@ -109,13 +109,15 @@ Protected routes are enforced server-side via a role middleware
 
 ---
 
-## 7. Maintenance & Known Gaps
+## 7. Maintenance & Remaining Operational Work
 
-Documented in `README.md` (known gaps G5, G10). Future improvements include:
+The application now protects against self-deactivation, last-Admin
+deactivation, and reuse of current or recent passwords. Remaining operational
+work includes:
 
-- protection against deactivating the last Admin / self-deactivation (G5);
-- password-reuse prevention (G10);
 - a persistent production session store;
+- a real password-reset mail transport;
+- isolated test-database execution;
 - optional barcode/QR scanning for asset lifecycle;
 - an enhanced visual dashboard.
 

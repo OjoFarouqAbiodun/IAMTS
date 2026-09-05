@@ -137,12 +137,12 @@ iamts/
 | G2  | Role-based authorization             | Implemented |
 | G3  | CSRF protection (double-submit cookie)| Implemented |
 | G4  | XSS output encoding (HTML entities) | Implemented |
-| G5  | Last-admin / self-deactivation guard | Finding only |
+| G5  | Last-admin / self-deactivation guard | Implemented |
 | G6  | Rate limiting on login               | Implemented |
 | G7  | Brute-force lockout (5 failures/15m) | Implemented |
 | G8  | Session fixation prevention          | Implemented |
 | G9  | HTTP security headers (Helmet)       | Implemented |
-| G10 | Password-reuse prevention            | Finding only |
+| G10 | Password-reuse prevention            | Implemented |
 
 ## Testing
 
@@ -160,10 +160,13 @@ database with data you can't afford to be temporarily touched.
 
 Tests require the staging server running on port 3100.
 
-## Known Gaps
+## Remaining Operational Work
 
-- **G5**: No protection against deactivating the last Admin or self-deactivation
-- **G10**: No password-reuse prevention (users can reuse any previous password)
+- Configure a persistent session store before production or multi-instance use.
+- Configure a real password-reset mail transport; the development fallback does
+	not log reset URLs.
+- Run automated tests against a dedicated test database rather than a shared
+	operational database.
 
 ## License
 

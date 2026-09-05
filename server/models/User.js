@@ -1,5 +1,17 @@
 const pool = require("../config/db");
 
+const getPasswordHistory = async (id, callback) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT password FROM password_history WHERE user_id = ? ORDER BY created_at DESC LIMIT 5",
+      [id],
+    );
+    callback(null, rows);
+  } catch (err) {
+    callback(err);
+  }
+};
+
 const findByEmail = async (email, callback) => {
   const sql = "SELECT * FROM users WHERE email = ?";
 
@@ -147,6 +159,17 @@ const changeStatus = async (id, status, callback) => {
   }
 };
 
+const countActiveAdmins = async (callback) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT COUNT(*) AS count FROM users WHERE role = 'Admin' AND status = 'Active'",
+    );
+    callback(null, Number(rows[0].count));
+  } catch (err) {
+    callback(err);
+  }
+};
+
 const getUserPasswordById = async (id, callback) => {
   const sql = "SELECT password FROM users WHERE id = ?";
   try {
@@ -158,12 +181,30 @@ const getUserPasswordById = async (id, callback) => {
 };
 
 const updatePassword = async (id, hashedPassword, callback) => {
-  const sql = "UPDATE users SET password = ? WHERE id = ?";
+  let connection;
   try {
-    await pool.query(sql, [hashedPassword, id]);
+    connection = await pool.getConnection();
+    await connection.beginTransaction();
+    const [rows] = await connection.query(
+      "SELECT password FROM users WHERE id = ? FOR UPDATE",
+      [id],
+    );
+    if (rows.length === 0) throw new Error("USER_NOT_FOUND");
+    await connection.query(
+      "INSERT INTO password_history (user_id, password) VALUES (?, ?)",
+      [id, rows[0].password],
+    );
+    await connection.query("UPDATE users SET password = ? WHERE id = ?", [
+      hashedPassword,
+      id,
+    ]);
+    await connection.commit();
     callback(null);
   } catch (err) {
+    if (connection) await connection.rollback().catch(() => {});
     callback(err);
+  } finally {
+    if (connection) connection.release();
   }
 };
 
@@ -175,6 +216,8 @@ module.exports = {
   updateOwnProfile,
   updateUser,
   changeStatus,
+  countActiveAdmins,
   getUserPasswordById,
+  getPasswordHistory,
   updatePassword,
 };

@@ -374,57 +374,65 @@ const changePassword = (req, res) => {
           .json({ message: "Current password is incorrect." });
       }
 
-      bcrypt.hash(trimmedNewPassword, 10, (err, hashedPassword) => {
-        if (err) {
-          console.error(err);
-          AuditLog.record({
-            actorUserId: userId,
-            actorRole: req.user.role,
-            category: "AUTH",
-            action: "CHANGE_PASSWORD",
-            outcome: "error",
-            targetType: "users",
-            targetId: String(userId),
-            detail: { reason: "server_error" },
-            ipAddress: req.ip,
-            userAgent: req.get("user-agent"),
-          });
-          return res.status(500).json({ message: "Server error" });
+      User.getPasswordHistory(userId, (historyErr, historyRows) => {
+        if (historyErr) {
+          console.error(historyErr);
+          return res.status(500).json({ message: "Database error" });
         }
 
-        User.updatePassword(userId, hashedPassword, (err) => {
-          if (err) {
-            console.error(err);
-            AuditLog.record({
-              actorUserId: userId,
-              actorRole: req.user.role,
-              category: "AUTH",
-              action: "CHANGE_PASSWORD",
-              outcome: "error",
-              targetType: "users",
-              targetId: String(userId),
-              detail: { reason: "database_error" },
-              ipAddress: req.ip,
-              userAgent: req.get("user-agent"),
+        const hashesToCheck = [
+          { password: storedHash },
+          ...historyRows,
+        ];
+        bcrypt.compare(trimmedNewPassword, storedHash, (sameErr, samePassword) => {
+          if (sameErr) {
+            console.error(sameErr);
+            return res.status(500).json({ message: "Server error" });
+          }
+          if (samePassword) {
+            return res.status(400).json({
+              message: "You cannot reuse a previous password.",
             });
-            return res.status(500).json({ message: "Database error" });
           }
 
-          AuditLog.record({
-            actorUserId: userId,
-            actorRole: req.user.role,
-            category: "AUTH",
-            action: "CHANGE_PASSWORD",
-            outcome: "success",
-            targetType: "users",
-            targetId: String(userId),
-            ipAddress: req.ip,
-            userAgent: req.get("user-agent"),
-          });
+          let index = 1;
+          const compareHistory = () => {
+            if (index >= hashesToCheck.length) return hashAndUpdate();
+            bcrypt.compare(trimmedNewPassword, hashesToCheck[index].password, (compareErr, reused) => {
+              if (compareErr) return res.status(500).json({ message: "Server error" });
+              if (reused) {
+                return res.status(400).json({
+                  message: "You cannot reuse a previous password.",
+                });
+              }
+              index += 1;
+              compareHistory();
+            });
+          };
 
-          invalidateOtherSessions(req, userId);
+          const hashAndUpdate = () => {
+            bcrypt.hash(trimmedNewPassword, 10, (hashErr, hashedPassword) => {
+              if (hashErr) return res.status(500).json({ message: "Server error" });
+              User.updatePassword(userId, hashedPassword, (updateErr) => {
+                if (updateErr) return res.status(500).json({ message: "Database error" });
+                AuditLog.record({
+                  actorUserId: userId,
+                  actorRole: req.user.role,
+                  category: "AUTH",
+                  action: "CHANGE_PASSWORD",
+                  outcome: "success",
+                  targetType: "users",
+                  targetId: String(userId),
+                  ipAddress: req.ip,
+                  userAgent: req.get("user-agent"),
+                });
+                invalidateOtherSessions(req, userId);
+                res.json({ message: "Password changed successfully." });
+              });
+            });
+          };
 
-          res.json({ message: "Password changed successfully." });
+          compareHistory();
         });
       });
     });
@@ -743,9 +751,16 @@ const resetPassword = (req, res) => {
       });
     }
 
-    PasswordReset.resetPassword(tokenHash, hashedPassword, (resetErr, result) => {
+    PasswordReset.resetPassword(
+      tokenHash,
+      hashedPassword,
+      trimmedNewPassword,
+      (resetErr, result) => {
       if (resetErr) {
-        if (resetErr.message === "Invalid or expired reset token.") {
+        if (
+          resetErr.message === "Invalid or expired reset token." ||
+          resetErr.message === "PASSWORD_REUSE"
+        ) {
           AuditLog.record({
             category: "AUTH",
             action: "RESET_PASSWORD",
@@ -756,7 +771,10 @@ const resetPassword = (req, res) => {
           });
           return res.status(400).json({
             success: false,
-            message: "Invalid or expired reset token.",
+            message:
+              resetErr.message === "PASSWORD_REUSE"
+                ? "You cannot reuse a previous password."
+                : "Invalid or expired reset token.",
           });
         }
 
@@ -791,7 +809,8 @@ const resetPassword = (req, res) => {
         success: true,
         message: "Password reset successful. You can now log in.",
       });
-    });
+      },
+    );
   });
 };
 

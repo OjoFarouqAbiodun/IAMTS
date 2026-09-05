@@ -251,7 +251,11 @@ const updateUser = (req, res) => {
       "phone_number",
     ]);
 
-    User.updateUser(req.params.id, data, (err) => {
+    if (status === "Inactive" && String(req.user.id) === String(req.params.id)) {
+      return res.status(400).json({ message: "You cannot deactivate your own account." });
+    }
+
+    const performUpdate = () => User.updateUser(req.params.id, data, (err) => {
       if (err) {
         if (isDuplicateKeyError(err)) {
           return res.status(400).json({ message: "An account with that email already exists." });
@@ -280,6 +284,23 @@ const updateUser = (req, res) => {
         message: "User updated successfully!",
       });
     });
+
+    if (status === "Inactive" && beforeUser.role === "Admin" && beforeUser.status === "Active") {
+      return User.countActiveAdmins((countErr, count) => {
+        if (countErr) {
+          console.error(countErr);
+          return res.status(500).json({ message: "Failed to update user." });
+        }
+        if (count <= 1) {
+          return res.status(400).json({
+            message: "The last active Admin cannot be deactivated.",
+          });
+        }
+        performUpdate();
+      });
+    }
+
+    performUpdate();
   });
 };
 
@@ -309,34 +330,54 @@ const changeStatus = (req, res) => {
       });
     }
 
-    User.changeStatus(req.params.id, status, (err) => {
-      if (err) {
-        console.error(err);
+    const targetUser = userResults[0];
+    if (status === "Inactive" && String(req.user.id) === String(req.params.id)) {
+      return res.status(400).json({ message: "You cannot deactivate your own account." });
+    }
 
-        return res.status(500).json({
-          message: "Failed to update status.",
+    const finishStatusChange = () => {
+      User.changeStatus(req.params.id, status, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ message: "Failed to update status." });
+        }
+
+        AuditLog.record({
+          actorUserId: req.user.id,
+          actorRole: req.user.role,
+          category: "USER",
+          action: "USER_STATUS_CHANGED",
+          outcome: "success",
+          targetType: "users",
+          targetId: String(req.params.id),
+          detail: { from: targetUser.status, to: status },
+          ipAddress: req.ip,
+          userAgent: req.get("user-agent"),
+        });
+
+        res.json({ message: "Status updated successfully!" });
+      });
+    };
+
+    if (
+      status !== "Inactive" ||
+      targetUser.role !== "Admin" ||
+      targetUser.status !== "Active"
+    ) {
+      return finishStatusChange();
+    }
+
+    User.countActiveAdmins((countErr, count) => {
+      if (countErr) {
+        console.error(countErr);
+        return res.status(500).json({ message: "Failed to update status." });
+      }
+      if (count <= 1) {
+        return res.status(400).json({
+          message: "The last active Admin cannot be deactivated.",
         });
       }
-
-      AuditLog.record({
-        actorUserId: req.user.id,
-        actorRole: req.user.role,
-        category: "USER",
-        action: "USER_STATUS_CHANGED",
-        outcome: "success",
-        targetType: "users",
-        targetId: String(req.params.id),
-        detail: {
-          from: userResults[0].status,
-          to: status,
-        },
-        ipAddress: req.ip,
-        userAgent: req.get("user-agent"),
-      });
-
-      res.json({
-        message: "Status updated successfully!",
-      });
+      finishStatusChange();
     });
   });
 };

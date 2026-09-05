@@ -1,4 +1,5 @@
 const pool = require("../config/db");
+const bcrypt = require("bcrypt");
 
 // Creates a password-reset token for a user.
 //
@@ -50,7 +51,12 @@ const createForUser = async (userId, tokenHash, expiresAt, callback) => {
 // The FOR UPDATE lock makes the single-use guarantee race-safe: two
 // concurrent attempts with the same token serialize on the row lock and
 // exactly one succeeds (the second re-reads the row as used and fails).
-const resetPassword = async (tokenHash, newHashedPassword, callback) => {
+const resetPassword = async (
+  tokenHash,
+  newHashedPassword,
+  newPlaintextPassword,
+  callback,
+) => {
   let connection;
   try {
     connection = await pool.getConnection();
@@ -58,7 +64,7 @@ const resetPassword = async (tokenHash, newHashedPassword, callback) => {
 
     const [rows] = await connection.query(
       `
-        SELECT pr.id, pr.user_id
+        SELECT pr.id, pr.user_id, u.password
         FROM password_resets pr
         INNER JOIN users u ON u.id = pr.user_id
         WHERE pr.token_hash = ?
@@ -75,6 +81,25 @@ const resetPassword = async (tokenHash, newHashedPassword, callback) => {
     }
 
     const { id: resetId, user_id: userId } = rows[0];
+
+    const [historyRows] = await connection.query(
+      "SELECT password FROM password_history WHERE user_id = ? ORDER BY created_at DESC LIMIT 5",
+      [userId],
+    );
+    const passwordsToCheck = [
+      { password: rows[0].password },
+      ...historyRows,
+    ];
+    for (const previous of passwordsToCheck) {
+      if (await bcrypt.compare(newPlaintextPassword, previous.password)) {
+        throw new Error("PASSWORD_REUSE");
+      }
+    }
+
+    await connection.query(
+      "INSERT INTO password_history (user_id, password) VALUES (?, ?)",
+      [userId, rows[0].password],
+    );
 
     await connection.query(
       `UPDATE users SET password = ? WHERE id = ?`,

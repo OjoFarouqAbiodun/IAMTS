@@ -107,7 +107,7 @@ iamts/
 |     | Reset-token security                     | tokens stored as SHA-256 hash, single-use, 30-min expiry    |
 |     | Auditability                             | append-only `audit_log`                                     |
 
-See `README.md` for the full control list and documented gaps (G5, G10).
+See `README.md` for the full control list and remaining operational work.
 
 ---
 
