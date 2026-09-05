@@ -31,10 +31,13 @@ if not exist ".env" (
     echo [SKIP] .env already exists.
 )
 
+REM --- Generate a session secret automatically when the template is unchanged
+"%NODE%" -e "const fs=require('fs'),crypto=require('crypto');const p='.env';let s=fs.readFileSync(p,'utf8');if(/^SESSION_SECRET=change_me_to_a_long_random_string$/m.test(s)){s=s.replace(/^SESSION_SECRET=.*$/m,'SESSION_SECRET='+crypto.randomBytes(32).toString('hex'));fs.writeFileSync(p,s);console.log('[OK] Generated a secure SESSION_SECRET automatically.')}else{console.log('[OK] Existing SESSION_SECRET preserved.')}"
+
 echo.
-echo [NEXT] Open the .env file and set:
-echo        - SESSION_SECRET = a random long string
-echo        - DB_PASSWORD   = your MySQL root password
+echo [NEXT] Open the .env file and set DB_PASSWORD to your MySQL password.
+echo        SESSION_SECRET has been generated automatically.
+echo        If your MySQL root account has no password, leave DB_PASSWORD empty.
 echo.
 echo Press any key when you are done editing .env to continue...
 pause >nul

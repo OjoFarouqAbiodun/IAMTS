@@ -15,8 +15,9 @@ runtime**, so it runs on any Windows 64-bit PC **without installing Node.js**.
 1. Make sure **MySQL** is installed and running.
 2. Double-click **`install.bat`**.
    - It creates your `.env` file.
-   - You will be prompted to edit `.env`: set `SESSION_SECRET` to a random
-     long string and `DB_PASSWORD` to your MySQL root password.
+   - It automatically generates `SESSION_SECRET` in `.env`.
+   - Open `.env` and set `DB_PASSWORD` to your MySQL root password. If the
+     MySQL root account has no password, leave `DB_PASSWORD` empty.
    - It then creates the `iamts` database, tables, and **demo data**.
    - If no Admin exists, the initializer asks for the Admin name, email,
      department, and password.

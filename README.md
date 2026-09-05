@@ -29,7 +29,8 @@ npm install
 
 # 2. Configure environment
 copy .env.example .env
-# Edit .env with your MySQL credentials and session secret
+# Edit .env with your MySQL credentials. Generate SESSION_SECRET with:
+# node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 # 3. Initialize database
 node database/init.js          # schema + Admin only (production)
