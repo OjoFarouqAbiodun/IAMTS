@@ -41,7 +41,8 @@ pause >nul
 
 echo.
 echo [RUN] Initializing the database with demo data...
-"%NODE%" database\init.js --seed < NUL
+echo [INFO] If no Admin exists, the initializer will ask you to create one.
+"%NODE%" database\init.js --seed
 if %ERRORLEVEL% neq 0 (
     echo.
     echo [ERROR] Database initialization failed. Check your .env and MySQL.
@@ -51,5 +52,5 @@ if %ERRORLEVEL% neq 0 (
 
 echo.
 echo [DONE] Setup complete. Run IAMTS.bat to start the system.
-echo Default Administrator: kalagbala@iamts.com / Password123!
+echo Use the Admin account created during initialization.
 pause

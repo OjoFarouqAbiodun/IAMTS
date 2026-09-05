@@ -18,6 +18,8 @@ runtime**, so it runs on any Windows 64-bit PC **without installing Node.js**.
    - You will be prompted to edit `.env`: set `SESSION_SECRET` to a random
      long string and `DB_PASSWORD` to your MySQL root password.
    - It then creates the `iamts` database, tables, and **demo data**.
+   - If no Admin exists, the initializer asks for the Admin name, email,
+     department, and password.
 3. When it finishes, run…
 
 ## Run
@@ -26,15 +28,15 @@ Double-click **`IAMTS.bat`**.
 - A browser opens at `http://localhost:3000`.
 - Keep the console window open (closing it stops the server).
 
-## Default Login (from demo data)
+## Demonstration Login
 
 | Role       | Email                    | Password     |
 |------------|--------------------------|--------------|
-| Admin      | kalagbala@iamts.com      | Password123! |
 | Technician | sadebayo@iamts.com       | Password123! |
 | Staff      | aogunleye@iamts.com      | Password123! |
 
-> Change these passwords when you go live.
+The Admin login is the account created during installation. Change the
+demonstration passwords before any real deployment.
 
 ## LAN access
 

@@ -14,10 +14,10 @@
 //   2. Implement the transport below and send an email containing resetUrl.
 
 const sendPasswordResetEmail = async (email, resetUrl) => {
-  // Fallback: log the reset URL so administrators can manually relay it.
-  // This does NOT reveal account existence — the caller already returns a
-  // generic response regardless of whether the email is registered.
-  console.log(`[EMAIL STUB] Password reset for ${email}: ${resetUrl}`);
+  // resetUrl is a bearer credential and must never be written to logs.
+  void email;
+  void resetUrl;
+  console.warn("Password-reset email delivery is not configured.");
   return Promise.resolve();
 };
 
