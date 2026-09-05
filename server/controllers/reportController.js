@@ -11,9 +11,14 @@ function isValidDateString(value) {
     return false;
   }
 
-  const parsed = new Date(`${value}T00:00:00Z`);
-
-  return !Number.isNaN(parsed.getTime());
+  const [year, month, day] = value.split("-").map(Number);
+  const parsed = new Date(Date.UTC(year, month - 1, day));
+  return (
+    !Number.isNaN(parsed.getTime()) &&
+    parsed.getUTCFullYear() === year &&
+    parsed.getUTCMonth() === month - 1 &&
+    parsed.getUTCDate() === day
+  );
 }
 
 function getDateRange(range) {
@@ -148,6 +153,7 @@ const getReportData = (req, res) => {
                   }
 
                   const response = {
+                    totalRequests: reportSummary.totalRequests,
                     totalAssets: assetSummary.totalAssets,
                     inventoryInStock: assetSummary.inventoryInStock,
                     assetsAssigned: assetSummary.assetsAssigned,
@@ -156,6 +162,8 @@ const getReportData = (req, res) => {
                     inProgressRequests: reportSummary.inProgressRequests,
                     completedRequests: reportSummary.completedRequests,
                     cancelledRequests: reportSummary.cancelledRequests,
+                    rejectedRequests: reportSummary.rejectedRequests,
+                    outOfServiceRequests: reportSummary.outOfServiceRequests,
                     priorityCounts: reportSummary.priorityCounts,
                     assetMaintenanceReport: maintenanceRows,
                     technicianWorkload: workloadRows,

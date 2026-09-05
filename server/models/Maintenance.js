@@ -518,6 +518,8 @@ const getReportSummary = async (startDate, endDate, callback) => {
       SUM(CASE WHEN maintenance_status = 'In Progress' THEN 1 ELSE 0 END) AS inProgressRequests,
       SUM(CASE WHEN maintenance_status = 'Completed' THEN 1 ELSE 0 END) AS completedRequests,
       SUM(CASE WHEN maintenance_status = 'Cancelled' THEN 1 ELSE 0 END) AS cancelledRequests,
+      SUM(CASE WHEN maintenance_status = 'Rejected' THEN 1 ELSE 0 END) AS rejectedRequests,
+      SUM(CASE WHEN maintenance_status = 'Out of Service' THEN 1 ELSE 0 END) AS outOfServiceRequests,
       SUM(CASE WHEN priority = 'High' THEN 1 ELSE 0 END) AS highPriority,
       SUM(CASE WHEN priority = 'Medium' THEN 1 ELSE 0 END) AS mediumPriority,
       SUM(CASE WHEN priority = 'Low' THEN 1 ELSE 0 END) AS lowPriority
@@ -534,16 +536,27 @@ const getReportSummary = async (startDate, endDate, callback) => {
       inProgressRequests: 0,
       completedRequests: 0,
       cancelledRequests: 0,
+      rejectedRequests: 0,
+      outOfServiceRequests: 0,
       highPriority: 0,
       mediumPriority: 0,
       lowPriority: 0,
     };
 
     callback(null, {
+      totalRequests:
+        Number(row.pendingRequests || 0) +
+        Number(row.inProgressRequests || 0) +
+        Number(row.completedRequests || 0) +
+        Number(row.cancelledRequests || 0) +
+        Number(row.rejectedRequests || 0) +
+        Number(row.outOfServiceRequests || 0),
       pendingRequests: row.pendingRequests || 0,
       inProgressRequests: row.inProgressRequests || 0,
       completedRequests: row.completedRequests || 0,
       cancelledRequests: row.cancelledRequests || 0,
+      rejectedRequests: row.rejectedRequests || 0,
+      outOfServiceRequests: row.outOfServiceRequests || 0,
       priorityCounts: {
         high: row.highPriority || 0,
         medium: row.mediumPriority || 0,

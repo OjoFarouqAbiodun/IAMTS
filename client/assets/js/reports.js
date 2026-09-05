@@ -18,6 +18,10 @@ const completedRequestsCount = document.querySelector(
 const cancelledRequestsCount = document.querySelector(
   "#cancelledRequestsCount",
 );
+const rejectedRequestsCount = document.querySelector("#rejectedRequestsCount");
+const outOfServiceRequestsCount = document.querySelector(
+  "#outOfServiceRequestsCount",
+);
 const highPriorityFill = document.querySelector("#highPriorityFill");
 const mediumPriorityFill = document.querySelector("#mediumPriorityFill");
 const lowPriorityFill = document.querySelector("#lowPriorityFill");
@@ -97,6 +101,10 @@ function updateReportSummary(data) {
     completedRequestsCount.textContent = data.completedRequests;
   if (cancelledRequestsCount)
     cancelledRequestsCount.textContent = data.cancelledRequests;
+  if (rejectedRequestsCount)
+    rejectedRequestsCount.textContent = data.rejectedRequests;
+  if (outOfServiceRequestsCount)
+    outOfServiceRequestsCount.textContent = data.outOfServiceRequests;
 }
 
 function updatePriorityBlocks(priorityCounts = { high: 0, medium: 0, low: 0 }) {
@@ -240,6 +248,8 @@ function renderDonutChart(data) {
   const ip = Number(data.inProgressRequests) || 0;
   const c = Number(data.completedRequests) || 0;
   const cx = Number(data.cancelledRequests) || 0;
+  const r = Number(data.rejectedRequests) || 0;
+  const os = Number(data.outOfServiceRequests) || 0;
 
   if (totalEl) totalEl.textContent = total;
 
@@ -253,10 +263,14 @@ function renderDonutChart(data) {
     const s2 = s1 + pct(ip);
     const s3 = s2 + pct(c);
     const s4 = s3 + pct(cx);
+    const s5 = s4 + pct(r);
+    const s6 = s5 + pct(os);
     donut.style.setProperty("--s1", `${s1}deg`);
     donut.style.setProperty("--s2", `${s2}deg`);
     donut.style.setProperty("--s3", `${s3}deg`);
     donut.style.setProperty("--s4", `${s4}deg`);
+    donut.style.setProperty("--s5", `${s5}deg`);
+    donut.style.setProperty("--s6", `${s6}deg`);
   } else {
     donut.style.setProperty("--s1", "0deg");
     donut.style.setProperty("--s2", "0deg");

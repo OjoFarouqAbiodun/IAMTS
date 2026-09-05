@@ -69,6 +69,8 @@
   --s2: 0deg;
   --s3: 0deg;
   --s4: 0deg;
+  --s5: 0deg;
+  --s6: 0deg;
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -78,7 +80,9 @@
     var(--status-progress) var(--s1) var(--s2),
     var(--status-completed) var(--s2) var(--s3),
     var(--status-cancelled) var(--s3) var(--s4),
-    #e2e8f0 var(--s4) 360deg
+    #8B5CF6 var(--s4) var(--s5),
+    #0F766E var(--s5) var(--s6),
+    #e2e8f0 var(--s6) 360deg
   );
   display: flex;
   align-items: center;
