@@ -1,4 +1,4 @@
-let currentRange = "today";
+let currentRange = "all";
 
 let latestReportData = null;
 
@@ -362,6 +362,7 @@ function renderWorkloadBarChart(rows) {
 }
 
 function getRangeLabel() {
+  if (currentRange === "all") return "All Time";
   if (currentRange === "today") return "Today";
   if (currentRange === "week") return "This Week";
   if (currentRange === "month") return "This Month";

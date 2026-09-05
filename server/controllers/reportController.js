@@ -24,6 +24,13 @@ function isValidDateString(value) {
 function getDateRange(range) {
   const now = new Date();
 
+  if (range === "all") {
+    return {
+      startDate: "1000-01-01 00:00:00",
+      endDate: "9999-12-31 23:59:59",
+    };
+  }
+
   const start = new Date(now);
   const end = new Date(now);
 
