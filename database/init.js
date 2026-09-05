@@ -88,6 +88,26 @@ function prompt(rl, question) {
   });
 }
 
+async function ensureDemoUsers(conn) {
+  const demoUsers = [
+    ["Mrs. K. Alagbala", "kalagbala@iamts.com", "08031234567", "Admin", "ICT"],
+    ["Mr. S. Adebayo", "sadebayo@iamts.com", "08041234568", "Technician", "ICT"],
+    ["Mr. O. Adeyemi", "oadeyemi@iamts.com", "08051234569", "Technician", "ICT"],
+    ["Mrs. A. Ogunleye", "aogunleye@iamts.com", "08061234570", "Staff", "Administration"],
+    ["Mr. T. Oladipo", "toladipo@iamts.com", "08071234571", "Staff", "Finance"],
+    ["Miss D. Akinola", "dakinola@iamts.com", "08081234572", "Staff", "Research & Innovation"],
+  ];
+  const demoHash = "$2b$10$GvC.MSJmsFqrFZzG6AKGdOzcMtBbZO0lTXOtrloKRUJErGHN0PHfO";
+  for (const [name, email, phone, role, department] of demoUsers) {
+    await conn.query(
+      `INSERT INTO users (full_name, email, phone_number, password, role, department, status)
+       SELECT ?, ?, ?, ?, ?, ?, 'Active'
+       WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = ?)`,
+      [name, email, phone, demoHash, role, department, email],
+    );
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
@@ -236,10 +256,15 @@ async function main() {
             // Seed data already exists — skip silently
           } else {
             fail(`${file}: ${err.message}`);
+            throw err;
           }
         }
       }
       ok(`${file} — ${executed} statement(s)`);
+      if (file === "seed/02_users.sql") {
+        await ensureDemoUsers(conn);
+        ok("seed/02_users.sql — verified all demonstration users");
+      }
     }
   } else {
     console.log("\n--- Seed Data ---");
